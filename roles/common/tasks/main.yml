@@ -6,3 +6,6 @@
 
 - name: Install text editor
   apt: pkg=vim
+
+- name: Install tmux
+  apt: pkg=tmux

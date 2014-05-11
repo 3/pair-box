@@ -1,0 +1,11 @@
+- name: Clone vim files repository
+  shell: git clone https://github.com/3/dotfiles.git
+
+- name: link gitconfig
+  shell: ln -s dotfiles/.gitconfig ~/.gitconfig
+
+- name: link vimrc
+  shell: ln -s dotfiles/.vimrc ~/.vimrc
+
+- name: move tmux conf
+  shell: cp dotfiles/.tmux.conf ~/

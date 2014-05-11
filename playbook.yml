@@ -1,10 +1,16 @@
-- name: Configure newly created ec2 node
-  hosts: launched
+- hosts: all
+  user: vagrant
   sudo: yes
-  gather_facts: True
+
   roles:
     - common
     - users
     - git
+
+- hosts: local
+  user: tmux
+  sudo: yes
+  roles:
     - nodejs
     - ruby
+    - setup
