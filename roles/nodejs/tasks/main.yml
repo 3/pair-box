@@ -1,0 +1,19 @@
+- name: Check if nodejs is installed
+  shell: which nodejs
+  register: nodejs_installed
+  ignore_errors: true
+
+- name: Install nodejs build dependencies
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - build-essential
+    - python
+
+- name: Add nodejs ppa
+  apt_repository: repo="deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main" state=present
+  apt_repository: repo="deb-src http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main" state=present
+  when: nodejs_installed|failed
+
+- name: Install nodejs
+  apt: pkg=nodejs  state=latest update_cache=yes
+  when: nodejs_installed|failed

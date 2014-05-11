@@ -1,0 +1,42 @@
+# Source: https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-from-source
+- name: Install ruby build dependencies
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - build-essential
+    - openssl
+    - libreadline6
+    - libreadline6-dev
+    - curl
+    - git-core
+    - zlib1g
+    - zlib1g-dev
+    - libssl-dev
+    - libyaml-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - autoconf
+    - libc6-dev
+    - libncurses5-dev
+    - automake
+    - libtool
+    - bison
+    - python-software-properties
+    - python-apt
+
+- name: Check if ruby is already installed
+  shell: which ruby
+  register: ruby_present
+  ignore_errors: yes
+
+- name: Add brightbox ppa
+  apt_repository: repo='deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu trusty main' state=present
+  apt_repository: repo='deb-src http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu trusty main' state=present
+  when: ruby_present|failed
+
+- name: Install ruby
+  apt: pkg=ruby state=latest update_cache=yes
+  when: ruby_present|failed
+
+- name: Install bundler
+  shell: gem install bundler
+  when: ruby_present|failed

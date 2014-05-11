@@ -1,0 +1,8 @@
+- name: Update and upgrade packages
+  apt: update_cache=yes upgrade=yes
+
+- name: Install build-essential
+  apt: pkg=build-essential
+
+- name: Install text editor
+  apt: pkg=vim

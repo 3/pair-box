@@ -1,0 +1,10 @@
+- name: Configure newly created ec2 node
+  hosts: launched
+  sudo: yes
+  gather_facts: True
+  roles:
+    - common
+    - users
+    - git
+    - nodejs
+    - ruby
