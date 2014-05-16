@@ -7,10 +7,8 @@
     - users
     - git
 
-- hosts: local
+- hosts: all
   user: tmux
-  sudo: yes
+
   roles:
-    - nodejs
-    - ruby
-    - setup
+    - vim

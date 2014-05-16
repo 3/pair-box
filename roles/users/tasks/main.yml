@@ -1,2 +1,6 @@
 - name: Create tmux user
   user: name=tmux
+
+- name: Add authorized key
+  authorized_key: user=tmux
+                  key="{{ lookup('file', '/home/alacaba/.ssh/id_rsa.pub') }}"
