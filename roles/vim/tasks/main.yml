@@ -1,5 +1,5 @@
 - name: Download dotfiles
-  shell: git clone https://github.com/3/dotfiles
+  shell: git clone https://github.com/3/dotfiles --recursive
 
 - name: Create Symbolic link
   file: src=/home/tmux/dotfiles/{{ item.path }} dest=/home/tmux/{{ item.dest }} state=link
@@ -8,6 +8,3 @@
     - { path: '.vimrc', dest: '.vimrc' }
     - { path: '.tmux.conf', dest: '.tmux.conf' }
     - { path: '.gitconfig', dest: '.gitconfig' }
-
-- name: Activate git submodules
-  shell: git submodule init && git submodule update chdir=/home/tmux/dotfiles
